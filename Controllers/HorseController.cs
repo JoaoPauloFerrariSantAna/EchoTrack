@@ -68,8 +68,8 @@ public class HorseController : ControllerBase
         return CreatedAtAction(nameof(GetAnimal), new { animal.Id }, animal);
     }
 
-    [HttpPost("{animalId:int}")]
-    public IActionResult FeedAnimal(int animalId, [FromBody] uint amountToFeed)
+    [HttpPost("{animalId:int}/eat")]
+    public IActionResult FeedAnimal(int animalId, [FromBody] double amountToFeed)
     {
         HorseRepository horseToFeed = this.FindAnimal(animalId);
 
@@ -77,12 +77,24 @@ public class HorseController : ControllerBase
             return this.HandleClientError(404, "Animal does not exists");
 
         if (!horseToFeed.Eat(amountToFeed))
-        {
             // TODO: make better error handler
-            return BadRequest(new { msg = "Animal may be already full" });
-        }
+            return this.HandleClientError(400, "Animal may be already full");
 
         return Ok(new { horseToFeed.Id, horseToFeed.Name, horseToFeed.AmountEaten });
+    }
+
+    [HttpPost("{animalId:int}/defacate")]
+    public IActionResult DefecateAnimal(int animalId)
+    {
+        HorseRepository horseToDefecate = this.FindAnimal(animalId);
+
+        if(!this.DoesAnimalExists(horseToDefecate))
+            return this.HandleClientError(404, "Animal does not exists");
+
+        if (!horseToDefecate.Defecate())
+            return this.HandleClientError(400, "Animal has empty stomach");
+
+        return Ok(new { horseToDefecate.Id, horseToDefecate.Name, horseToDefecate.AmountEaten });
     }
 
     [HttpPut("{animalId:int}")]
@@ -104,9 +116,9 @@ public class HorseController : ControllerBase
     [HttpDelete("{animalId:int}")]
     public IActionResult DeleteAnimal(int animalId)
     {
-        HorseRepository? animalToDelete = animals.Find(a => a.Id == animalId);
+        HorseRepository? animalToDelete = this.FindAnimal(animalId);
 
-        if (this.DoesAnimalExists(animalToDelete))
+        if (!this.DoesAnimalExists(animalToDelete))
             return this.HandleClientError(404, "animal not found");
 
         animals.Remove(animalToDelete);
