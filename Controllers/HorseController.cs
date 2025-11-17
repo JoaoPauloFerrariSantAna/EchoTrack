@@ -11,6 +11,22 @@ public class HorseController : ControllerBase
     // TODO: substitute for a database
     private static List<HorseRepository> animals = new List<HorseRepository> { };
 
+    private IActionResult HandleClientError(int statusCode, string msg)
+    {
+        switch (statusCode)
+        {
+            case 404:
+                return NotFound(new { msg });
+
+            case 409:
+                return Conflict(new { msg });
+
+            case 400:
+            default:
+                return BadRequest(new { msg });
+        }
+    }
+
     private HorseRepository FindAnimal(int id)
     {
         return animals.Find(a => a.Id == id);
