@@ -38,6 +38,8 @@ public class HorseRepository :  IAnimalRepository
 
         // it can't eat negative values
         if (amountToFeed <= 0) return false;
+        
+        if ((AmountEaten + amountToFeed) >= MaxAmountToEat) return false;
 
         AmountEaten += amountToFeed;
 
