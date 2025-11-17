@@ -48,7 +48,8 @@ public class HorseController : ControllerBase
     {
         HorseRepository? animal = this.FindAnimal(animalId);
 
-        if (!this.DoesAnimalExists(animal)) return NotFound(new { msg = "Could not find animal with id" });
+        if (!this.DoesAnimalExists(animal))
+            return this.HandleClientError(404, "Could not find animal with id");
 
         return Ok(animal);
     }
@@ -57,27 +58,45 @@ public class HorseController : ControllerBase
     public IActionResult PostAnimal([FromBody] HorseRepository animal)
     {
         if (!this.DoesAnimalExists(animal))
-            return BadRequest(new { msg = "something went wrong" });
+            return this.HandleClientError(400, "something went wrong");
 
         if (animals.Any<HorseRepository>(a => a.Id == animal.Id))
-            return Conflict(new { msg = "Animal with Id already exists" });
+            return this.HandleClientError(409, "Animal already exists");
 
         animals.Add(animal);
 
-        return CreatedAtAction(nameof(GetAnimal), new { Id = animal.Id }, animal);
+        return CreatedAtAction(nameof(GetAnimal), new { animal.Id }, animal);
+    }
+
+    [HttpPost("{animalId:int}")]
+    public IActionResult FeedAnimal(int animalId, [FromBody] uint amountToFeed)
+    {
+        HorseRepository horseToFeed = this.FindAnimal(animalId);
+
+        if (!this.DoesAnimalExists(horseToFeed))
+            return this.HandleClientError(404, "Animal does not exists");
+
+        if (!horseToFeed.Eat(amountToFeed))
+        {
+            // TODO: make better error handler
+            return BadRequest(new { msg = "Animal may be already full" });
+        }
+
+        return Ok(new { horseToFeed.Id, horseToFeed.Name, horseToFeed.AmountEaten });
     }
 
     [HttpPut("{animalId:int}")]
     public IActionResult PutAnimal(int animalId, [FromBody] HorseRepository animalToPut)
     {
-        if (!this.DoesAnimalExists(animalToPut)) return BadRequest(new { msg = "something went wrong" });
+        if (!this.DoesAnimalExists(animalToPut)) 
+            return this.HandleClientError(400, "something went wrong");
 
         HorseRepository? existingAnimal = animals.FirstOrDefault(a => a.Id == animalToPut.Id);
 
         existingAnimal.Name = animalToPut.Name;
 
         // https://developer.mozilla.org/pt-BR/docs/Web/HTTP/Reference/Methods/PUT
-        return CreatedAtAction(nameof(GetAnimal), new { Id = animalToPut.Id });
+        return CreatedAtAction(nameof(GetAnimal), new { animalToPut.Id });
     }
 
     // NOTE: maybe make a Patch here
@@ -87,7 +106,8 @@ public class HorseController : ControllerBase
     {
         HorseRepository? animalToDelete = animals.Find(a => a.Id == animalId);
 
-        if (this.DoesAnimalExists(animalToDelete)) return NotFound(new { msg = "animal with id not found" });
+        if (this.DoesAnimalExists(animalToDelete))
+            return this.HandleClientError(404, "animal not found");
 
         animals.Remove(animalToDelete);
 
