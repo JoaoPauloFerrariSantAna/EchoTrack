@@ -1,0 +1,160 @@
+[
+  {
+    "ContainingType": "EchoTrackV2.Controllers.HorseController",
+    "Method": "GetAnimal",
+    "RelativePath": "api/animal/Horse",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EchoTrackV2.Controllers.HorseController",
+    "Method": "PostAnimal",
+    "RelativePath": "api/animal/Horse",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "animal",
+        "Type": "EchoTrackV2.Repositories.HorseRepository",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EchoTrackV2.Controllers.HorseController",
+    "Method": "GetAnimalById",
+    "RelativePath": "api/animal/Horse/{animalId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "animalId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EchoTrackV2.Controllers.HorseController",
+    "Method": "PutAnimal",
+    "RelativePath": "api/animal/Horse/{animalId}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "animalId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "animalToPut",
+        "Type": "EchoTrackV2.Repositories.HorseRepository",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EchoTrackV2.Controllers.HorseController",
+    "Method": "DeleteAnimal",
+    "RelativePath": "api/animal/Horse/{animalId}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "animalId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EchoTrackV2.Controllers.SheepController",
+    "Method": "GetAnimal",
+    "RelativePath": "api/animal/Sheep",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EchoTrackV2.Controllers.SheepController",
+    "Method": "PostAnimal",
+    "RelativePath": "api/animal/Sheep",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "animal",
+        "Type": "EchoTrackV2.Repositories.SheepRepository",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EchoTrackV2.Controllers.SheepController",
+    "Method": "GetAnimalById",
+    "RelativePath": "api/animal/Sheep/{animalId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "animalId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EchoTrackV2.Controllers.SheepController",
+    "Method": "PutAnimal",
+    "RelativePath": "api/animal/Sheep/{animalId}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "animalId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "animalToPut",
+        "Type": "EchoTrackV2.Repositories.SheepRepository",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EchoTrackV2.Controllers.SheepController",
+    "Method": "DeleteAnimal",
+    "RelativePath": "api/animal/Sheep/{animalId}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "animalId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  }
+]
