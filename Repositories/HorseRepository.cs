@@ -19,7 +19,7 @@ public class HorseRepository :  IAnimalRepository
 
     [DisallowNull]
     [Editable(false)]
-    public uint AmountEaten { get; private set; } = 0U;
+    public double AmountEaten { get; private set; } = 0;
 
     [DisallowNull]
     [Editable(false)]
@@ -29,7 +29,9 @@ public class HorseRepository :  IAnimalRepository
     [Editable(false)]
     public bool IsFull { get; private set; } = false;
 
-    public bool Eat(uint amountToFeed)
+    private const double AmountToDefecate = 1.25;
+
+    public bool Eat(double amountToFeed)
     {
         // it can't eat anymore
         if (IsFull) return false;
@@ -41,11 +43,22 @@ public class HorseRepository :  IAnimalRepository
 
         if (AmountEaten >= MaxAmountToEat) IsFull = true;
 
-        return true;
+        // eaten succssufully 
+        return IsFull;
     }
 
-    public void Defecate()
+    public bool Defecate()
     {
-        throw new NotImplementedException();
+        // can't shit anymore
+        if ((AmountEaten - AmountToDefecate) <= 0)
+        {
+            IsFull = false;
+            return false;
+        }
+
+        AmountEaten -= AmountToDefecate;
+
+        // shited succssufully 
+        return true;   
     }
 }
