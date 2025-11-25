@@ -1,17 +1,53 @@
 ﻿using EchoTrackV2.Interfaces;
 using EchoTrackV2.Repositories;
+
 namespace EchoTrackV2.Services;
 
-public class HorseService
+public class HorseService // : IAnimalService<HorseRepository>
 {
-    private readonly IAnimal _repository;
+    private readonly IAnimalRepository _repository;
 
-    public HorseService(IAnimal _repository)
+    public HorseService(IAnimalRepository repository)
     {
-        _repository = _repository;
+        _repository = repository;
     }
 
-    public void Eat(int amount)
+    public string SayHello()
+    {
+        return "banana";
+    }
+
+    public bool Defecate(int animalId)
+    {
+        throw new NotImplementedException();
+    }
+
+    public HorseRepository Delete(HorseRepository animal)
+    {
+        throw new NotImplementedException();
+    }
+
+    public bool Eat(double amountToFeed)
+    {
+        throw new NotImplementedException();
+    }
+
+    public List<HorseRepository> Get()
+    {
+        throw new NotImplementedException();
+    }
+
+    public HorseRepository GetById(int id)
+    {
+        throw new NotImplementedException();
+    }
+
+    public HorseRepository Post(HorseRepository animal)
+    {
+        throw new NotImplementedException();
+    }
+
+    public HorseRepository Put(HorseRepository animal)
     {
         throw new NotImplementedException();
     }

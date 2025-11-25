@@ -1,6 +1,8 @@
+using EchoTrackV2.Data;
 using EchoTrackV2.Interfaces;
 using EchoTrackV2.Repositories;
 using EchoTrackV2.Services;
+using Microsoft.EntityFrameworkCore;
 
 namespace EchoTrackV2;
 
@@ -8,7 +10,10 @@ public class Program
 {
     private static void PrepareDependencies(WebApplicationBuilder b)
     {
-        // b.Services.AddScoped<IAnimal, SheepRepository>();
+        b.Services.AddDbContext<DataContext>(opt => {
+            opt.UseSqlServer(b.Configuration.GetConnectionString("EchoTrackV2Context"));
+        });
+        // b.Services.AddSingleton<IAnimalService<SheepRepository>,  SheepService>();
     }
 
     private static void PrepareServiceContainer(WebApplicationBuilder b)

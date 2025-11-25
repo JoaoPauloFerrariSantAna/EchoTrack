@@ -1,15 +1,22 @@
 ﻿namespace EchoTrackV2.Controllers;
 
 using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 using EchoTrackV2.Repositories;
+using EchoTrackV2.Data;
+using EchoTrackV2.Services;
 
 [Route("api/animal/[controller]")]
 [ApiController()]
 public class HorseController : ControllerBase
 {
-    // TODO: substitute for a database
-    private static List<HorseRepository> animals = new List<HorseRepository> { };
+    private readonly DataContext _context;
+
+    public HorseController(DataContext context)
+    {
+        _context = context;
+    }
 
     private IActionResult HandleClientError(int statusCode, string msg)
     {
@@ -29,7 +36,7 @@ public class HorseController : ControllerBase
 
     private HorseRepository FindAnimal(int id)
     {
-        return animals.Find(a => a.Id == id);
+        return _context.Horses.ToList().Find(a => a.Id == id);
     }
 
     private bool DoesAnimalExists(HorseRepository animal)
@@ -40,7 +47,7 @@ public class HorseController : ControllerBase
     [HttpGet]
     public IActionResult GetAnimal()
     {
-        return Ok(animals);
+        return Ok(_context.Horses.ToList<HorseRepository>());
     }
 
     [HttpGet("{animalId:int}")]
@@ -60,10 +67,11 @@ public class HorseController : ControllerBase
         if (!this.DoesAnimalExists(animal))
             return this.HandleClientError(400, "something went wrong");
 
-        if (animals.Any<HorseRepository>(a => a.Id == animal.Id))
+        if (_context.Horses.Any<HorseRepository>(a => a.Id == animal.Id))
             return this.HandleClientError(409, "Animal already exists");
 
-        animals.Add(animal);
+        _context.Horses.Add(animal);
+        _context.SaveChanges();
 
         return CreatedAtAction(nameof(GetAnimal), new { animal.Id }, animal);
     }
@@ -100,15 +108,21 @@ public class HorseController : ControllerBase
     [HttpPut("{animalId:int}")]
     public IActionResult PutAnimal(int animalId, [FromBody] HorseRepository animalToPut)
     {
-        if (!this.DoesAnimalExists(animalToPut)) 
+        HorseRepository? existingAnimal = null;
+
+        if (!this.DoesAnimalExists(animalToPut))
             return this.HandleClientError(400, "something went wrong");
 
-        HorseRepository? existingAnimal = animals.FirstOrDefault(a => a.Id == animalToPut.Id);
+        existingAnimal = _context.Horses.FirstOrDefault<HorseRepository>(a => a.Id == animalId);
 
-        existingAnimal.Name = animalToPut.Name;
+        if (!this.DoesAnimalExists(existingAnimal)) 
+            return this.HandleClientError(400, "something went wrong");
+
+        _context.Entry<HorseRepository>(existingAnimal).CurrentValues.SetValues(animalToPut);
+        _context.SaveChanges();
 
         // https://developer.mozilla.org/pt-BR/docs/Web/HTTP/Reference/Methods/PUT
-        return CreatedAtAction(nameof(GetAnimal), new { animalToPut.Id });
+        return CreatedAtAction(nameof(GetAnimal), new { animalToPut.Id, animalToPut.Name });
     }
 
     // NOTE: maybe make a Patch here
@@ -121,7 +135,8 @@ public class HorseController : ControllerBase
         if (!this.DoesAnimalExists(animalToDelete))
             return this.HandleClientError(404, "animal not found");
 
-        animals.Remove(animalToDelete);
+        _context.Horses.Remove(animalToDelete);
+        _context.SaveChanges();
 
         return Ok(animalToDelete);
     }

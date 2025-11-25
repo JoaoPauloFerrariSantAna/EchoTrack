@@ -79,6 +79,43 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "EchoTrackV2.Controllers.HorseController",
+    "Method": "DefecateAnimal",
+    "RelativePath": "api/animal/Horse/{animalId}/defacate",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "animalId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EchoTrackV2.Controllers.HorseController",
+    "Method": "FeedAnimal",
+    "RelativePath": "api/animal/Horse/{animalId}/eat",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "animalId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "amountToFeed",
+        "Type": "System.Double",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "EchoTrackV2.Controllers.SheepController",
     "Method": "GetAnimal",
     "RelativePath": "api/animal/Sheep",
@@ -152,6 +189,43 @@
       {
         "Name": "animalId",
         "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EchoTrackV2.Controllers.SheepController",
+    "Method": "DefecateAnimal",
+    "RelativePath": "api/animal/Sheep/{animalId}/defacate",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "animalId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EchoTrackV2.Controllers.SheepController",
+    "Method": "FeedAnimal",
+    "RelativePath": "api/animal/Sheep/{animalId}/eat",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "animalId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "amountToFeed",
+        "Type": "System.Double",
         "IsRequired": true
       }
     ],

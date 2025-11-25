@@ -3,17 +3,38 @@
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using EchoTrackV2.Repositories;
+using EchoTrackV2.Data;
 
 [Route("api/animal/[controller]")]
 [ApiController()]
 public class SheepController : ControllerBase
 {
-    // TODO: substitute for a database
-    private static List<SheepRepository> animals = new List<SheepRepository> { };
+    private readonly DataContext _context;
+
+    public SheepController(DataContext context)
+    {
+        _context = context;
+    }
+
+    private IActionResult HandleClientError(int statusCode, string msg)
+    {
+        switch (statusCode)
+        {
+            case 404:
+                return NotFound(new { msg });
+
+            case 409:
+                return Conflict(new { msg });
+
+            case 400:
+            default:
+                return BadRequest(new { msg });
+        }
+    }
 
     private SheepRepository FindAnimal(int id)
     {
-        return animals.Find(a => a.Id == id);
+        return _context.Sheep.ToList().Find(a => a.Id == id);
     }
 
     private bool DoesAnimalExists(SheepRepository animal)
@@ -24,7 +45,7 @@ public class SheepController : ControllerBase
     [HttpGet]
     public IActionResult GetAnimal()
     {
-        return Ok(animals);
+        return Ok(_context.Sheep.ToList<SheepRepository>());
     }
 
     [HttpGet("{animalId:int}")]
@@ -32,7 +53,8 @@ public class SheepController : ControllerBase
     {
         SheepRepository? animal = this.FindAnimal(animalId);
 
-        if (!this.DoesAnimalExists(animal)) return NotFound(new { msg = "Could not find animal with id" });
+        if (!this.DoesAnimalExists(animal))
+            return this.HandleClientError(404, "Could not find animal with id");
 
         return Ok(animal);
     }
@@ -41,27 +63,64 @@ public class SheepController : ControllerBase
     public IActionResult PostAnimal([FromBody] SheepRepository animal)
     {
         if (!this.DoesAnimalExists(animal))
-            return BadRequest(new { msg = "something went wrong" });
+            return this.HandleClientError(400, "something went wrong");
 
-        if (animals.Any<SheepRepository>(a => a.Id == animal.Id))
-            return Conflict(new { msg = "Animal with Id already exists" });
+        if (_context.Sheep.Any<SheepRepository>(a => a.Id == animal.Id))
+            return this.HandleClientError(409, "Animal already exists");
 
-        animals.Add(animal);
+        _context.Sheep.Add(animal);
+        _context.SaveChanges();
 
-        return CreatedAtAction(nameof(GetAnimal), new { Id = animal.Id }, animal);
+        return CreatedAtAction(nameof(GetAnimal), new { animal.Id }, animal);
+    }
+
+    [HttpPost("{animalId:int}/eat")]
+    public IActionResult FeedAnimal(int animalId, [FromBody] double amountToFeed)
+    {
+        SheepRepository animalToFeed = this.FindAnimal(animalId);
+
+        if (!this.DoesAnimalExists(animalToFeed))
+            return this.HandleClientError(404, "Animal does not exists");
+
+        if (!animalToFeed.Eat(amountToFeed))
+            // TODO: make better error handler
+            return this.HandleClientError(400, "Animal may be already full");
+
+        return Ok(new { animalToFeed.Id, animalToFeed.Name, animalToFeed.AmountEaten });
+    }
+
+    [HttpPost("{animalId:int}/defacate")]
+    public IActionResult DefecateAnimal(int animalId)
+    {
+        SheepRepository horseToDefecate = this.FindAnimal(animalId);
+
+        if (!this.DoesAnimalExists(horseToDefecate))
+            return this.HandleClientError(404, "Animal does not exists");
+
+        if (!horseToDefecate.Defecate())
+            return this.HandleClientError(400, "Animal has empty stomach");
+
+        return Ok(new { horseToDefecate.Id, horseToDefecate.Name, horseToDefecate.AmountEaten });
     }
 
     [HttpPut("{animalId:int}")]
     public IActionResult PutAnimal(int animalId, [FromBody] SheepRepository animalToPut)
     {
-        if (!this.DoesAnimalExists(animalToPut)) return BadRequest(new { msg = "something went wrong" });
+        SheepRepository? existingAnimal = null;
 
-        SheepRepository? existingAnimal = animals.FirstOrDefault(a => a.Id == animalToPut.Id);
+        if (!this.DoesAnimalExists(animalToPut))
+            return this.HandleClientError(400, "something went wrong");
 
-        existingAnimal.Name = animalToPut.Name;
+        existingAnimal = _context.Sheep.FirstOrDefault<SheepRepository>(a => a.Id == animalId);
+
+        if (!this.DoesAnimalExists(existingAnimal))
+            return this.HandleClientError(400, "something went wrong");
+
+        _context.Entry<SheepRepository>(existingAnimal).CurrentValues.SetValues(animalToPut);
+        _context.SaveChanges();
 
         // https://developer.mozilla.org/pt-BR/docs/Web/HTTP/Reference/Methods/PUT
-        return CreatedAtAction(nameof(GetAnimal), new { Id = animalToPut.Id });
+        return CreatedAtAction(nameof(GetAnimal), new { animalToPut.Id, animalToPut.Name });
     }
 
     // NOTE: maybe make a Patch here
@@ -69,11 +128,13 @@ public class SheepController : ControllerBase
     [HttpDelete("{animalId:int}")]
     public IActionResult DeleteAnimal(int animalId)
     {
-        SheepRepository? animalToDelete = animals.Find(a => a.Id == animalId);
+        SheepRepository? animalToDelete = this.FindAnimal(animalId);
 
-        if (this.DoesAnimalExists(animalToDelete)) return NotFound(new { msg = "animal with id not found" });
+        if (!this.DoesAnimalExists(animalToDelete))
+            return this.HandleClientError(404, "animal not found");
 
-        animals.Remove(animalToDelete);
+        _context.Sheep.Remove(animalToDelete);
+        _context.SaveChanges();
 
         return Ok(animalToDelete);
     }
