@@ -9,4 +9,5 @@ public class DataContext : DbContext
 
     public DbSet<HorseRepository> Horses { get; set; }
     public DbSet<SheepRepository> Sheep { get; set; }
+    public DbSet<WorkerRepository> Workers { get; set; }
 }

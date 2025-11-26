@@ -72,6 +72,23 @@ namespace EchoTrackV2.Migrations
 
                     b.ToTable("Sheep");
                 });
+
+            modelBuilder.Entity("EchoTrackV2.Repositories.WorkerRepository", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Workers");
+                });
 #pragma warning restore 612, 618
         }
     }
