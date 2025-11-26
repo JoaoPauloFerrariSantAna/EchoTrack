@@ -1,9 +1,9 @@
 ﻿namespace EchoTrackV2.Controllers;
-
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
-using EchoTrackV2.Repositories;
 using EchoTrackV2.Data;
+using EchoTrackV2.Repositories;
+using EchoTrackV2.Checkers;
 
 [Route("api/animal/[controller]")]
 [ApiController()]
@@ -37,11 +37,6 @@ public class SheepController : ControllerBase
         return _context.Sheep.ToList().Find(a => a.Id == id);
     }
 
-    private bool DoesAnimalExists(SheepRepository animal)
-    {
-        return (animal != null);
-    }
-
     [HttpGet]
     public IActionResult GetAnimal()
     {
@@ -53,7 +48,7 @@ public class SheepController : ControllerBase
     {
         SheepRepository? animal = this.FindAnimal(animalId);
 
-        if (!this.DoesAnimalExists(animal))
+        if (!ExistenseChecker.DoesItExists<SheepRepository>(animal))
             return this.HandleClientError(404, "Could not find animal with id");
 
         return Ok(animal);
@@ -62,7 +57,7 @@ public class SheepController : ControllerBase
     [HttpPost]
     public IActionResult PostAnimal([FromBody] SheepRepository animal)
     {
-        if (!this.DoesAnimalExists(animal))
+        if (!ExistenseChecker.DoesItExists<SheepRepository>(animal))
             return this.HandleClientError(400, "something went wrong");
 
         if (_context.Sheep.Any<SheepRepository>(a => a.Id == animal.Id))
@@ -79,7 +74,7 @@ public class SheepController : ControllerBase
     {
         SheepRepository animalToFeed = this.FindAnimal(animalId);
 
-        if (!this.DoesAnimalExists(animalToFeed))
+        if (!ExistenseChecker.DoesItExists<SheepRepository>(animalToFeed))
             return this.HandleClientError(404, "Animal does not exists");
 
         if (!animalToFeed.Eat(amountToFeed))
@@ -94,7 +89,7 @@ public class SheepController : ControllerBase
     {
         SheepRepository horseToDefecate = this.FindAnimal(animalId);
 
-        if (!this.DoesAnimalExists(horseToDefecate))
+        if (!ExistenseChecker.DoesItExists<SheepRepository>(horseToDefecate))
             return this.HandleClientError(404, "Animal does not exists");
 
         if (!horseToDefecate.Defecate())
@@ -108,12 +103,12 @@ public class SheepController : ControllerBase
     {
         SheepRepository? existingAnimal = null;
 
-        if (!this.DoesAnimalExists(animalToPut))
+        if (!ExistenseChecker.DoesItExists<SheepRepository>(animalToPut))
             return this.HandleClientError(400, "something went wrong");
 
         existingAnimal = _context.Sheep.FirstOrDefault<SheepRepository>(a => a.Id == animalId);
 
-        if (!this.DoesAnimalExists(existingAnimal))
+        if (!ExistenseChecker.DoesItExists<SheepRepository>(existingAnimal))
             return this.HandleClientError(400, "something went wrong");
 
         _context.Entry<SheepRepository>(existingAnimal).CurrentValues.SetValues(animalToPut);
@@ -130,7 +125,7 @@ public class SheepController : ControllerBase
     {
         SheepRepository? animalToDelete = this.FindAnimal(animalId);
 
-        if (!this.DoesAnimalExists(animalToDelete))
+        if (!ExistenseChecker.DoesItExists<SheepRepository>(animalToDelete))
             return this.HandleClientError(404, "animal not found");
 
         _context.Sheep.Remove(animalToDelete);
