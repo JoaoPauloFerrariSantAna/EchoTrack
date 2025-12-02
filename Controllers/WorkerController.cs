@@ -48,7 +48,7 @@ public class WorkerController : ControllerBase
     {
         WorkerRepository? worker = this.FindWorker(id);
 
-        if (!ExistenseChecker.DoesItExists<WorkerRepository>(worker))
+        if (!AnimalChecker.DoesItExists<WorkerRepository>(worker))
             return this.HandleClientError(404, "Could not find animal with id");
 
         return Ok(worker);
@@ -74,12 +74,12 @@ public class WorkerController : ControllerBase
     {
         WorkerRepository? existingWorker = null;
 
-        if (!ExistenseChecker.DoesItExists<WorkerRepository>(workerToPut))
+        if (!AnimalChecker.DoesItExists<WorkerRepository>(workerToPut))
             return this.HandleClientError(400, "something went wrong");
 
         existingWorker = _context.Workers.FirstOrDefault<WorkerRepository>(a => a.Id == workerId);
 
-        if (!ExistenseChecker.DoesItExists<WorkerRepository>(existingWorker))
+        if (!AnimalChecker.DoesItExists<WorkerRepository>(existingWorker))
             return this.HandleClientError(400, "something went wrong");
 
         _context.Entry<WorkerRepository>(existingWorker).CurrentValues.SetValues(workerToPut);
@@ -96,7 +96,7 @@ public class WorkerController : ControllerBase
     {
         WorkerRepository? workerToDelete = this.FindWorker(workerId);
 
-        if (!ExistenseChecker.DoesItExists<WorkerRepository>(workerToDelete))
+        if (!AnimalChecker.DoesItExists<WorkerRepository>(workerToDelete))
             return this.HandleClientError(404, "animal not found");
 
         _context.Workers.Remove(workerToDelete);
