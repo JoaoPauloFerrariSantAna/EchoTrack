@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "EGqR0f1FIA8=",
+  "dgSpecHash": "GOIoB+28dyM=",
   "success": true,
   "projectFilePath": "C:\\Users\\jp-gt\\Documents\\EchoTrack\\EchoTrackV2\\EchoTrackV2.csproj",
   "expectedPackageFiles": [
@@ -95,7 +95,7 @@
     "C:\\Users\\jp-gt\\.nuget\\packages\\microsoft.identitymodel.protocols.openidconnect\\6.35.0\\microsoft.identitymodel.protocols.openidconnect.6.35.0.nupkg.sha512",
     "C:\\Users\\jp-gt\\.nuget\\packages\\microsoft.identitymodel.tokens\\6.35.0\\microsoft.identitymodel.tokens.6.35.0.nupkg.sha512",
     "C:\\Users\\jp-gt\\.nuget\\packages\\microsoft.net.stringtools\\18.0.2\\microsoft.net.stringtools.18.0.2.nupkg.sha512",
-    "C:\\Users\\jp-gt\\.nuget\\packages\\microsoft.openapi\\1.6.17\\microsoft.openapi.1.6.17.nupkg.sha512",
+    "C:\\Users\\jp-gt\\.nuget\\packages\\microsoft.openapi\\1.6.23\\microsoft.openapi.1.6.23.nupkg.sha512",
     "C:\\Users\\jp-gt\\.nuget\\packages\\microsoft.sqlserver.server\\1.0.0\\microsoft.sqlserver.server.1.0.0.nupkg.sha512",
     "C:\\Users\\jp-gt\\.nuget\\packages\\microsoft.visualstudio.web.codegeneration\\9.0.0\\microsoft.visualstudio.web.codegeneration.9.0.0.nupkg.sha512",
     "C:\\Users\\jp-gt\\.nuget\\packages\\microsoft.visualstudio.web.codegeneration.core\\9.0.0\\microsoft.visualstudio.web.codegeneration.core.9.0.0.nupkg.sha512",
@@ -115,6 +115,8 @@
     "C:\\Users\\jp-gt\\.nuget\\packages\\nuget.projectmodel\\6.11.0\\nuget.projectmodel.6.11.0.nupkg.sha512",
     "C:\\Users\\jp-gt\\.nuget\\packages\\nuget.protocol\\6.11.0\\nuget.protocol.6.11.0.nupkg.sha512",
     "C:\\Users\\jp-gt\\.nuget\\packages\\nuget.versioning\\6.11.0\\nuget.versioning.6.11.0.nupkg.sha512",
+    "C:\\Users\\jp-gt\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\9.0.1\\swashbuckle.aspnetcore.swagger.9.0.1.nupkg.sha512",
+    "C:\\Users\\jp-gt\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\9.0.1\\swashbuckle.aspnetcore.swaggergen.9.0.1.nupkg.sha512",
     "C:\\Users\\jp-gt\\.nuget\\packages\\swashbuckle.aspnetcore.swaggerui\\9.0.1\\swashbuckle.aspnetcore.swaggerui.9.0.1.nupkg.sha512",
     "C:\\Users\\jp-gt\\.nuget\\packages\\system.clientmodel\\1.0.0\\system.clientmodel.1.0.0.nupkg.sha512",
     "C:\\Users\\jp-gt\\.nuget\\packages\\system.codedom\\6.0.0\\system.codedom.6.0.0.nupkg.sha512",

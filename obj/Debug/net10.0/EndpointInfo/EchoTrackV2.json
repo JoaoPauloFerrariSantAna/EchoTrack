@@ -1,17 +1,9 @@
 {
-  "openapi": "3.1.1",
+  "openapi": "3.0.4",
   "info": {
-    "title": "EchoTrackV2 | v1",
-    "version": "1.0.0"
+    "title": "EchoTrackV2",
+    "version": "1.0"
   },
-  "servers": [
-    {
-      "url": "https://localhost:7108"
-    },
-    {
-      "url": "http://localhost:5211"
-    }
-  ],
   "paths": {
     "/api/animal/Horse": {
       "get": {
@@ -32,21 +24,20 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/HorseRepository"
+                "$ref": "#/components/schemas/IAnimalRepository"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/HorseRepository"
+                "$ref": "#/components/schemas/IAnimalRepository"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/HorseRepository"
+                "$ref": "#/components/schemas/IAnimalRepository"
               }
             }
-          },
-          "required": true
+          }
         },
         "responses": {
           "200": {
@@ -66,154 +57,6 @@
             "in": "path",
             "required": true,
             "schema": {
-              "pattern": "^-?(?:0|[1-9]\\d*)$",
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      },
-      "put": {
-        "tags": [
-          "Horse"
-        ],
-        "parameters": [
-          {
-            "name": "animalId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "pattern": "^-?(?:0|[1-9]\\d*)$",
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/HorseRepository"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/HorseRepository"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/HorseRepository"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      },
-      "delete": {
-        "tags": [
-          "Horse"
-        ],
-        "parameters": [
-          {
-            "name": "animalId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "pattern": "^-?(?:0|[1-9]\\d*)$",
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/api/animal/Horse/{animalId}/eat": {
-      "post": {
-        "tags": [
-          "Horse"
-        ],
-        "parameters": [
-          {
-            "name": "animalId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "pattern": "^-?(?:0|[1-9]\\d*)$",
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?(?:[eE][+-]?\\d+)?$",
-                "type": [
-                  "number",
-                  "string"
-                ],
-                "format": "double"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?(?:[eE][+-]?\\d+)?$",
-                "type": [
-                  "number",
-                  "string"
-                ],
-                "format": "double"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?(?:[eE][+-]?\\d+)?$",
-                "type": [
-                  "number",
-                  "string"
-                ],
-                "format": "double"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/api/animal/Horse/{animalId}/defacate": {
-      "post": {
-        "tags": [
-          "Horse"
-        ],
-        "parameters": [
-          {
-            "name": "animalId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "pattern": "^-?(?:0|[1-9]\\d*)$",
               "type": "integer",
               "format": "int32"
             }
@@ -258,8 +101,7 @@
                 "$ref": "#/components/schemas/SheepRepository"
               }
             }
-          },
-          "required": true
+          }
         },
         "responses": {
           "200": {
@@ -279,7 +121,6 @@
             "in": "path",
             "required": true,
             "schema": {
-              "pattern": "^-?(?:0|[1-9]\\d*)$",
               "type": "integer",
               "format": "int32"
             }
@@ -301,7 +142,6 @@
             "in": "path",
             "required": true,
             "schema": {
-              "pattern": "^-?(?:0|[1-9]\\d*)$",
               "type": "integer",
               "format": "int32"
             }
@@ -324,8 +164,7 @@
                 "$ref": "#/components/schemas/SheepRepository"
               }
             }
-          },
-          "required": true
+          }
         },
         "responses": {
           "200": {
@@ -343,7 +182,201 @@
             "in": "path",
             "required": true,
             "schema": {
-              "pattern": "^-?(?:0|[1-9]\\d*)$",
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/animal/Sheep/{animalId}/eat": {
+      "post": {
+        "tags": [
+          "Sheep"
+        ],
+        "parameters": [
+          {
+            "name": "animalId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "number",
+                "format": "double"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "type": "number",
+                "format": "double"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "type": "number",
+                "format": "double"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/animal/Sheep/{animalId}/defacate": {
+      "post": {
+        "tags": [
+          "Sheep"
+        ],
+        "parameters": [
+          {
+            "name": "animalId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Worker": {
+      "get": {
+        "tags": [
+          "Worker"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Worker"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/WorkerRepository"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/WorkerRepository"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/WorkerRepository"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Worker/{id}": {
+      "get": {
+        "tags": [
+          "Worker"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Worker/{workerId}": {
+      "put": {
+        "tags": [
+          "Worker"
+        ],
+        "parameters": [
+          {
+            "name": "workerId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/WorkerRepository"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/WorkerRepository"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/WorkerRepository"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Worker"
+        ],
+        "parameters": [
+          {
+            "name": "workerId",
+            "in": "path",
+            "required": true,
+            "schema": {
               "type": "integer",
               "format": "int32"
             }
@@ -359,69 +392,54 @@
   },
   "components": {
     "schemas": {
-      "HorseRepository": {
+      "IAnimalRepository": {
         "type": "object",
-        "properties": {
-          "id": {
-            "pattern": "^-?(?:0|[1-9]\\d*)$",
-            "type": [
-              "integer",
-              "string"
-            ],
-            "format": "int32"
-          },
-          "name": {
-            "maxLength": 12,
-            "minLength": 5,
-            "type": "string"
-          },
-          "amountEaten": {
-            "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?(?:[eE][+-]?\\d+)?$",
-            "type": [
-              "number",
-              "string"
-            ],
-            "format": "double"
-          },
-          "maxAmountToEat": {
-            "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?(?:[eE][+-]?\\d+)?$",
-            "type": [
-              "number",
-              "string"
-            ],
-            "format": "double"
-          },
-          "isFull": {
-            "type": "boolean"
-          }
-        }
+        "additionalProperties": false
       },
       "SheepRepository": {
         "type": "object",
         "properties": {
           "id": {
-            "pattern": "^-?(?:0|[1-9]\\d*)$",
-            "type": [
-              "integer",
-              "string"
-            ],
+            "type": "integer",
             "format": "int32"
           },
           "name": {
             "maxLength": 12,
             "minLength": 5,
-            "type": "string"
+            "type": "string",
+            "nullable": true
+          },
+          "amountEaten": {
+            "type": "number",
+            "format": "double",
+            "readOnly": true
+          },
+          "maxAmountToEat": {
+            "type": "number",
+            "format": "double",
+            "readOnly": true
+          },
+          "isFull": {
+            "type": "boolean",
+            "readOnly": true
           }
-        }
+        },
+        "additionalProperties": false
+      },
+      "WorkerRepository": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
       }
     }
-  },
-  "tags": [
-    {
-      "name": "Horse"
-    },
-    {
-      "name": "Sheep"
-    }
-  ]
+  }
 }

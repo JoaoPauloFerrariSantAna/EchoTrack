@@ -19,7 +19,7 @@
     "Parameters": [
       {
         "Name": "animal",
-        "Type": "EchoTrackV2.Repositories.HorseRepository",
+        "Type": "EchoTrackV2.Interfaces.IAnimalRepository",
         "IsRequired": true
       }
     ],
@@ -36,80 +36,6 @@
       {
         "Name": "animalId",
         "Type": "System.Int32",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "EchoTrackV2.Controllers.HorseController",
-    "Method": "PutAnimal",
-    "RelativePath": "api/animal/Horse/{animalId}",
-    "HttpMethod": "PUT",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "animalId",
-        "Type": "System.Int32",
-        "IsRequired": true
-      },
-      {
-        "Name": "animalToPut",
-        "Type": "EchoTrackV2.Repositories.HorseRepository",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "EchoTrackV2.Controllers.HorseController",
-    "Method": "DeleteAnimal",
-    "RelativePath": "api/animal/Horse/{animalId}",
-    "HttpMethod": "DELETE",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "animalId",
-        "Type": "System.Int32",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "EchoTrackV2.Controllers.HorseController",
-    "Method": "DefecateAnimal",
-    "RelativePath": "api/animal/Horse/{animalId}/defacate",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "animalId",
-        "Type": "System.Int32",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "EchoTrackV2.Controllers.HorseController",
-    "Method": "FeedAnimal",
-    "RelativePath": "api/animal/Horse/{animalId}/eat",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "animalId",
-        "Type": "System.Int32",
-        "IsRequired": true
-      },
-      {
-        "Name": "amountToFeed",
-        "Type": "System.Double",
         "IsRequired": true
       }
     ],
@@ -226,6 +152,85 @@
       {
         "Name": "amountToFeed",
         "Type": "System.Double",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EchoTrackV2.Controllers.WorkerController",
+    "Method": "GetWorkers",
+    "RelativePath": "api/Worker",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EchoTrackV2.Controllers.WorkerController",
+    "Method": "PostWorker",
+    "RelativePath": "api/Worker",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "worker",
+        "Type": "EchoTrackV2.Repositories.WorkerRepository",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EchoTrackV2.Controllers.WorkerController",
+    "Method": "GetWorkerById",
+    "RelativePath": "api/Worker/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EchoTrackV2.Controllers.WorkerController",
+    "Method": "PutAnimal",
+    "RelativePath": "api/Worker/{workerId}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "workerId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "workerToPut",
+        "Type": "EchoTrackV2.Repositories.WorkerRepository",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EchoTrackV2.Controllers.WorkerController",
+    "Method": "DeleteAnimal",
+    "RelativePath": "api/Worker/{workerId}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "workerId",
+        "Type": "System.Int32",
         "IsRequired": true
       }
     ],

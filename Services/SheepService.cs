@@ -3,7 +3,7 @@ using EchoTrackV2.Repositories;
 
 namespace EchoTrackV2.Services;
 
-public class SheepService : IAnimalService<SheepRepository>
+public class SheepService : IAnimalService<IAnimalRepository>
 {
     private readonly IAnimalRepository _repository;
 
@@ -17,7 +17,7 @@ public class SheepService : IAnimalService<SheepRepository>
         throw new NotImplementedException();
     }
 
-    public SheepRepository Delete(HorseRepository animal)
+    public IAnimalRepository Delete(IAnimalRepository animal)
     {
         throw new NotImplementedException();
     }
@@ -27,22 +27,22 @@ public class SheepService : IAnimalService<SheepRepository>
         throw new NotImplementedException();
     }
 
-    public List<SheepRepository> Get()
+    public List<IAnimalRepository> GetAnimals()
     {
         throw new NotImplementedException();
     }
 
-    public SheepRepository GetById(int id)
+    public IAnimalRepository GetById(int id)
     {
         throw new NotImplementedException();
     }
 
-    public SheepRepository Post(HorseRepository animal)
+    public IAnimalRepository Post(IAnimalRepository animal)
     {
         throw new NotImplementedException();
     }
 
-    public SheepRepository Put(HorseRepository animal)
+    public IAnimalRepository Put(IAnimalRepository animal)
     {
         throw new NotImplementedException();
     }

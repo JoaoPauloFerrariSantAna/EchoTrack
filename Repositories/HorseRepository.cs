@@ -1,13 +1,20 @@
-﻿using EchoTrackV2.Interfaces;
+﻿using EchoTrackV2.Data;
+using EchoTrackV2.Interfaces;
 using NuGet.Packaging.Signing;
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.CodeAnalysis;
 
 namespace EchoTrackV2.Repositories;
 
-public class HorseRepository :  IAnimalRepository
+public class HorseRepository : IAnimalRepository
 {
     // TODO: add context
+    private readonly DataContext _context;
+
+    public HorseRepository(DataContext context)
+    {
+        _context = context;
+    }
 
     [Editable(false)]
     public int Id { get; set; }
@@ -30,6 +37,37 @@ public class HorseRepository :  IAnimalRepository
     public bool IsFull { get; private set; } = false;
 
     private const double AmountToDefecate = 1.25;
+
+    private HorseRepository FindAnimal(int id)
+    {
+        return _context.Horses.ToList().Find(a => a.Id == id);
+    }
+
+    public List<IAnimalRepository> GetAnimals()
+    {
+        return _context.Horses.ToList<IAnimalRepository>();
+    }
+
+    public IAnimalRepository GetAnimalById(int id)
+    {
+        return this.FindAnimal(id);
+    }
+
+    public IAnimalRepository StoreAnimal(IAnimalRepository animal)
+    {
+        if (_context.Horses.Any<HorseRepository>(a => a.Id == ((HorseRepository)animal).Id))
+            return null;
+
+        _context.Horses.Add((HorseRepository)animal);
+        _context.SaveChanges();
+
+        return animal;
+    }
+
+    public IAnimalRepository UpdateAnimal(IAnimalRepository animal)
+    {
+        throw new NotImplementedException();
+    }
 
     public bool Eat(double amountToFeed)
     {
@@ -63,4 +101,8 @@ public class HorseRepository :  IAnimalRepository
         // shited succssufully 
         return true;   
     }
+
+    
+
+    
 }

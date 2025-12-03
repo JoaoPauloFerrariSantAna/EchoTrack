@@ -4,15 +4,18 @@ using Microsoft.AspNetCore.Mvc;
 using EchoTrackV2.Data;
 using EchoTrackV2.Repositories;
 using EchoTrackV2.Checkers;
+using EchoTrackV2.Interfaces;
 
 [Route("api/animal/[controller]")]
 [ApiController()]
 public class SheepController : ControllerBase
 {
+    private readonly IAnimalRepository _repository;
     private readonly DataContext _context;
 
-    public SheepController(DataContext context)
+    public SheepController(IAnimalRepository repository, DataContext context)
     {
+        _repository = repository;
         _context = context;
     }
 

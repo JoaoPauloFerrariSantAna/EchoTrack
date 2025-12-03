@@ -54,6 +54,12 @@ public class WorkerController : ControllerBase
         return Ok(worker);
     }
 
+    [HttpPost]
+    public IActionResult PostWorker([FromBody] WorkerRepository worker)
+    {
+        throw new NotImplementedException();
+    }
+
     /* [HttpPost("{animalId:int}/eat")]
     public IActionResult FeedAnimal(int animalId, [FromBody] double amountToFeed)
     {

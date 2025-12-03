@@ -7,16 +7,17 @@ using EchoTrackV2.Repositories;
 using EchoTrackV2.Data;
 using EchoTrackV2.Services;
 using EchoTrackV2.Checkers;
+using EchoTrackV2.Interfaces;
 
 [Route("api/animal/[controller]")]
 [ApiController()]
 public class HorseController : ControllerBase
 {
-    private readonly DataContext _context;
+    private readonly IAnimalService<IAnimalRepository> _service;
 
-    public HorseController(DataContext context)
+    public HorseController(IAnimalService<IAnimalRepository> service)
     {
-        _context = context;
+        _service = service;
     }
 
     private IActionResult HandleClientError(int statusCode, string msg)
@@ -35,44 +36,35 @@ public class HorseController : ControllerBase
         }
     }
 
-    private HorseRepository FindAnimal(int id)
-    {
-        return _context.Horses.ToList().Find(a => a.Id == id);
-    }
-
     [HttpGet]
     public IActionResult GetAnimal()
     {
-        return Ok(_context.Horses.ToList<HorseRepository>());
+        return Ok(_service.GetAnimals());
     }
 
     [HttpGet("{animalId:int}")]
     public IActionResult GetAnimalById(int animalId)
     {
-        HorseRepository? animal = this.FindAnimal(animalId);
+        IAnimalRepository? animal = _service.GetById(animalId);
 
-        if (!ExistenseChecker.DoesItExists<HorseRepository>(animal))
+        if (!ExistenseChecker.DoesItExists<IAnimalRepository>(animal))
             return this.HandleClientError(404, "Could not find animal with id");
 
         return Ok(animal);
     }
 
     [HttpPost]
-    public IActionResult PostAnimal([FromBody] HorseRepository animal)
+    public IActionResult PostAnimal([FromBody] IAnimalRepository animal)
     {
-        if (!ExistenseChecker.DoesItExists<HorseRepository>(animal))
+        IAnimalRepository postedAnimal = _service.Post(animal);
+
+        if (postedAnimal == null)
             return this.HandleClientError(400, "something went wrong");
 
-        if (_context.Horses.Any<HorseRepository>(a => a.Id == animal.Id))
-            return this.HandleClientError(409, "Animal already exists");
-
-        _context.Horses.Add(animal);
-        _context.SaveChanges();
-
-        return CreatedAtAction(nameof(GetAnimal), new { animal.Id }, animal);
+        return CreatedAtAction(nameof(GetAnimal), new { animalmsg = "horse created" }, animal);
     }
 
-    [HttpPost("{animalId:int}/eat")]
+    /*[HttpPost("{animalId:int}/eat")]
     public IActionResult FeedAnimal(int animalId, [FromBody] double amountToFeed)
     {
         HorseRepository horseToFeed = this.FindAnimal(animalId);
@@ -99,9 +91,9 @@ public class HorseController : ControllerBase
             return this.HandleClientError(400, "Animal has empty stomach");
 
         return Ok(new { horseToDefecate.Id, horseToDefecate.Name, horseToDefecate.AmountEaten });
-    }
+    }*/
 
-    [HttpPut("{animalId:int}")]
+    /*[HttpPut("{animalId:int}")]
     public IActionResult PutAnimal(int animalId, [FromBody] HorseRepository animalToPut)
     {
         HorseRepository? existingAnimal = null;
@@ -135,5 +127,5 @@ public class HorseController : ControllerBase
         _context.SaveChanges();
 
         return Ok(animalToDelete);
-    }
+    }*/
 }
