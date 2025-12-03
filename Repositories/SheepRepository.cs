@@ -4,7 +4,7 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace EchoTrackV2.Repositories;
 
-public class SheepRepository : IAnimalRepository
+public class SheepRepository : ISheepRepository
 {
     [Editable(false)]
     public int Id { get; set; }
@@ -35,32 +35,17 @@ public class SheepRepository : IAnimalRepository
         throw new NotImplementedException();
     }
 
-    public string SayHello()
-    {
-        return "Test message";
-    }
-
-    public List<IAnimalRepository> GetAnimals()
+    public List<SheepRepository> GetSheep()
     {
         throw new NotImplementedException();
     }
 
-    public IAnimalRepository GetAnimalById(int id)
+    public SheepRepository GetSheepById(int id)
     {
         throw new NotImplementedException();
     }
 
-    public SheepRepository StoreAnimal(SheepRepository animal)
-    {
-        throw new NotImplementedException();
-    }
-
-    public IAnimalRepository UpdateAnimal(IAnimalRepository animal)
-    {
-        throw new NotImplementedException();
-    }
-
-    public IAnimalRepository StoreAnimal(IAnimalRepository animal)
+    public SheepRepository StoreSheep(SheepRepository animal)
     {
         throw new NotImplementedException();
     }

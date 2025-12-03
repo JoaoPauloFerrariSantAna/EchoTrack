@@ -2,5 +2,5 @@
 
 public interface IWorkerRepository
 {
-    public void TakeCareOfAnimal(IAnimalRepository animalToCare);
+    public void TakeCareOfAnimal(IHorseRepository animalToCare);
 }

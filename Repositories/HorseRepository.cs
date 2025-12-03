@@ -6,7 +6,7 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace EchoTrackV2.Repositories;
 
-public class HorseRepository : IAnimalRepository
+public class HorseRepository : IHorseRepository
 {
     // TODO: add context
     private readonly DataContext _context;
@@ -43,28 +43,28 @@ public class HorseRepository : IAnimalRepository
         return _context.Horses.ToList().Find(a => a.Id == id);
     }
 
-    public List<IAnimalRepository> GetAnimals()
+    public List<HorseRepository> GetHorses()
     {
-        return _context.Horses.ToList<IAnimalRepository>();
+        return _context.Horses.ToList<HorseRepository>();
     }
 
-    public IAnimalRepository GetAnimalById(int id)
+    public HorseRepository GetHorseById(int id)
     {
         return this.FindAnimal(id);
     }
 
-    public IAnimalRepository StoreAnimal(IAnimalRepository animal)
+    public HorseRepository StoreHorse(HorseRepository animal)
     {
-        if (_context.Horses.Any<HorseRepository>(a => a.Id == ((HorseRepository)animal).Id))
+        if (_context.Horses.Any<HorseRepository>(a => a.Id == animal.Id))
             return null;
 
-        _context.Horses.Add((HorseRepository)animal);
+        _context.Horses.Add(animal);
         _context.SaveChanges();
 
         return animal;
     }
 
-    public IAnimalRepository UpdateAnimal(IAnimalRepository animal)
+    public HorseRepository UpdateAnimal(HorseRepository animal)
     {
         throw new NotImplementedException();
     }
@@ -101,8 +101,4 @@ public class HorseRepository : IAnimalRepository
         // shited succssufully 
         return true;   
     }
-
-    
-
-    
 }

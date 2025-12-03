@@ -10,9 +10,9 @@ public class Program
 {
     private static void PrepareDependencies(WebApplicationBuilder b)
     {
-        b.Services.AddScoped<IAnimalRepository, SheepRepository>();
-        b.Services.AddScoped<IAnimalRepository, HorseRepository>();
-        b.Services.AddScoped<IAnimalService, HorseService>();
+        b.Services.AddScoped<ISheepRepository, SheepRepository>();
+        b.Services.AddScoped<IHorseRepository, HorseRepository>();
+        b.Services.AddScoped<IHorseService, HorseService>();
         b.Services.AddDbContext<DataContext>(opt =>
         {
             opt.UseSqlServer(b.Configuration.GetConnectionString("EchoTrackV2Context"));

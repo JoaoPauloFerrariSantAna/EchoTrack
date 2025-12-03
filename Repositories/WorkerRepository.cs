@@ -8,7 +8,7 @@ public class WorkerRepository : IWorkerRepository
     public int Id { get; set; }
     public string Name { get; set; }
 
-    public void TakeCareOfAnimal(IAnimalRepository animal)
+    public void TakeCareOfAnimal(IHorseRepository animal)
     {
         throw new NotImplementedException();
     }

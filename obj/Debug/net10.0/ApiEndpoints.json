@@ -19,7 +19,7 @@
     "Parameters": [
       {
         "Name": "animal",
-        "Type": "EchoTrackV2.Interfaces.IAnimalRepository",
+        "Type": "EchoTrackV2.Repositories.HorseRepository",
         "IsRequired": true
       }
     ],

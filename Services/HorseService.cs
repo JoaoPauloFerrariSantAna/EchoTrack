@@ -4,86 +4,32 @@ using EchoTrackV2.Repositories;
 
 namespace EchoTrackV2.Services;
 
-public class HorseService : IAnimalService<IAnimalRepository>
+public class HorseService : IHorseService
 {
-    private readonly IAnimalRepository _repository;
+    private readonly IHorseRepository _repository;
 
-    public HorseService(IAnimalRepository repository)
+    public HorseService(IHorseRepository repository)
     {
         _repository = repository;
     }
 
-    public bool Defecate(int animalId)
+    public HorseRepository GetHorseById(int id)
     {
-        throw new NotImplementedException();
+        return _repository.GetHorseById(id);
     }
 
-    public List<IAnimalRepository> GetAnimals()
+    public List<HorseRepository> GetHorses()
     {
-        return _repository.GetAnimals();
+        return _repository.GetHorses();
     }
 
-    public IAnimalRepository GetById(int id)
+    public HorseRepository StoreHorse(HorseRepository horse)
     {
-        IAnimalRepository? animal = _repository.GetAnimalById(id);
+        HorseRepository postedHorse = _repository.GetHorseById(horse.Id);
 
-        return animal;
-    }
-
-    public IAnimalRepository Post(IAnimalRepository animal)
-    {
-        IAnimalRepository postedAnimal = null;
-
-        if (!ExistenseChecker.DoesItExists<IAnimalRepository>(animal))
+        if (postedHorse != null)
             return null;
 
-        postedAnimal = _repository.StoreAnimal(animal);
-
-        return postedAnimal;
+        return _repository.StoreHorse(horse);
     }
-
-    public IAnimalRepository Put(IAnimalRepository animal)
-    {
-        throw new NotImplementedException();
-    }
-
-    public IAnimalRepository Delete(IAnimalRepository animal)
-    {
-        throw new NotImplementedException();
-    }
-
-    public bool Eat(double amountToFeed)
-    {
-        throw new NotImplementedException();
-    }
-
-    /*public HorseRepository Delete(HorseRepository animal)
-    {
-        throw new NotImplementedException();
-    }
-
-    public bool Eat(double amountToFeed)
-    {
-        throw new NotImplementedException();
-    }
-
-    public List<HorseRepository> Get()
-    {
-        throw new NotImplementedException();
-    }
-
-    public HorseRepository GetById(int id)
-    {
-        throw new NotImplementedException();
-    }
-
-    public HorseRepository Post(HorseRepository animal)
-    {
-        throw new NotImplementedException();
-    }
-
-    public HorseRepository Put(HorseRepository animal)
-    {
-        throw new NotImplementedException();
-    }*/
 }

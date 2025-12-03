@@ -13,9 +13,9 @@ using EchoTrackV2.Interfaces;
 [ApiController()]
 public class HorseController : ControllerBase
 {
-    private readonly IAnimalService<IAnimalRepository> _service;
+    private readonly IHorseService _service;
 
-    public HorseController(IAnimalService<IAnimalRepository> service)
+    public HorseController(IHorseService service)
     {
         _service = service;
     }
@@ -39,24 +39,26 @@ public class HorseController : ControllerBase
     [HttpGet]
     public IActionResult GetAnimal()
     {
-        return Ok(_service.GetAnimals());
+        return Ok(_service.GetHorses());
     }
 
     [HttpGet("{animalId:int}")]
     public IActionResult GetAnimalById(int animalId)
     {
-        IAnimalRepository? animal = _service.GetById(animalId);
+        HorseRepository? animal = _service.GetHorseById(animalId);
 
-        if (!ExistenseChecker.DoesItExists<IAnimalRepository>(animal))
+        if (!AnimalChecker.DoesItExists<HorseRepository>(animal))
             return this.HandleClientError(404, "Could not find animal with id");
 
         return Ok(animal);
     }
-
+    
     [HttpPost]
-    public IActionResult PostAnimal([FromBody] IAnimalRepository animal)
+    public IActionResult PostAnimal([FromBody] HorseRepository animal)
     {
-        IAnimalRepository postedAnimal = _service.Post(animal);
+
+        Console.Write("a");
+        HorseRepository postedAnimal = _service.StoreHorse(animal);
 
         if (postedAnimal == null)
             return this.HandleClientError(400, "something went wrong");

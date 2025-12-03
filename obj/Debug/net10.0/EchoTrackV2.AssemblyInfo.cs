@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("EchoTrackV2")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+bdc885934d4d05595c1c0d772b8e5df36c05b9ee")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+29dc91f58f2cdb2a033fee0b6959ed9381ce0dcc")]
 [assembly: System.Reflection.AssemblyProductAttribute("EchoTrackV2")]
 [assembly: System.Reflection.AssemblyTitleAttribute("EchoTrackV2")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
